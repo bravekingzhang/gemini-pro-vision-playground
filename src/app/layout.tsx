@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ["latin"] });
 import { Providers } from "@/providers";
 
 export const metadata: Metadata = {
-  title: "Gemini Vision Playground",
-  description: "A Playground for Gemini Vision",
+  title: "hzzhhz",
+  description: "勇哥的玩具",
 };
 
 export default function RootLayout({
