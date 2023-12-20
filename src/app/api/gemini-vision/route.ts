@@ -29,7 +29,7 @@ const defaultSafetySettings = {
   dangerousContent: 0,
 };
 
-export const runtime = "edge";
+//export const runtime = "edge";
 
 export async function POST(req: Request) {
   const { message, media, media_types, general_settings, safety_settings } =
