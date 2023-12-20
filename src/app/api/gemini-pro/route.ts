@@ -32,7 +32,7 @@ const defaultSafetySettings = {
   dangerousContent: 0,
 };
 
-export const runtime = "edge";
+//export const runtime = "edge";
 
 export async function POST(req: Request) {
   const { messages, general_settings, safety_settings } = await req.json();
