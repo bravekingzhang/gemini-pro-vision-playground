@@ -6,6 +6,7 @@ import {
   useCallback,
   useContext,
   ReactNode,
+  useEffect,
 } from "react";
 
 import { MediaData, SafetySettings, GeneralSettings } from "@/types";
@@ -15,12 +16,14 @@ interface ControlContextState {
   firstMediaData: MediaData | null;
   secondMediaData: MediaData | null;
   generalSettings: GeneralSettings;
+  validCode: string;
   handleGeneralSettingsChange: (
     setting: keyof GeneralSettings,
     newValue: number
   ) => void;
   safetySettings: SafetySettings;
   handleModelChange: (model: "gemini-pro" | "gemini-pro-vision") => void;
+  handleValidCodeChange: (code: string) => void;
   handleSafetyChange: (type: keyof SafetySettings, newValue: number[]) => void;
   handleFirstMediaUpload: (data: string, mimeType: string) => void;
   handleSecondMediaUpload: (data: string, mimeType: string) => void;
@@ -48,6 +51,18 @@ export const ControlProvider = ({ children }: { children: ReactNode }) => {
     sexuallyExplicit: 2,
     dangerousContent: 2,
   });
+
+  const [validCode, setValidCode] = useState<string>("");
+
+  useEffect(() => {
+    window.localStorage.getItem("validCode") &&
+      setValidCode(window.localStorage.getItem("validCode") as string);
+  }, []);
+
+  const handleValidCodeChange = useCallback((code: string) => {
+    setValidCode(code);
+    window.localStorage.setItem("validCode", code);
+  }, []);
 
   const [firstMediaData, setFirstMediaData] = useState<MediaData | null>(null);
   const [secondMediaData, setSecondMediaData] = useState<MediaData | null>(
@@ -98,10 +113,12 @@ export const ControlProvider = ({ children }: { children: ReactNode }) => {
         selectedModel,
         firstMediaData,
         secondMediaData,
+        validCode,
         generalSettings,
         handleGeneralSettingsChange,
         safetySettings,
         handleModelChange,
+        handleValidCodeChange,
         handleSafetyChange,
         handleFirstMediaUpload,
         handleSecondMediaUpload,

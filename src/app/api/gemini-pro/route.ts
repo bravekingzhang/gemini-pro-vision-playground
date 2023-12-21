@@ -35,6 +35,11 @@ const defaultSafetySettings = {
 //export const runtime = "edge";
 
 export async function POST(req: Request) {
+  const validCode = req.headers.get("x-valid-code") || "";
+  const validCodes = process.env.VALID_CODES?.split(",") || [];
+  if (validCodes.indexOf(validCode) === -1) {
+    return new Response("Unauthorized,please set you code", { status: 401 });
+  }
   const { messages, general_settings, safety_settings } = await req.json();
   const { temperature, maxLength, topP, topK } =
     general_settings as GeneralSettings;

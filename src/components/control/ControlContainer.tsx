@@ -19,6 +19,7 @@ import { ChevronDown } from "lucide-react";
 import { SettingsSelector } from "./SettingsSelector";
 
 import { settings_data } from "./settings_data";
+import { Input } from "../ui/Input";
 
 export const ControlContainer = () => {
   const {
@@ -26,6 +27,8 @@ export const ControlContainer = () => {
     generalSettings,
     handleGeneralSettingsChange,
     safetySettings,
+    validCode,
+    handleValidCodeChange,
     handleModelChange,
     handleSafetyChange,
     handleFirstMediaUpload,
@@ -143,6 +146,15 @@ export const ControlContainer = () => {
                   handleSafetyChange("dangerousContent", newValue)
                 }
               />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3">
+            <AccordionTrigger>Valid Code Settings</AccordionTrigger>
+            <AccordionContent>
+              <Input
+                value={validCode}
+                onChange={(e) => handleValidCodeChange(e.target.value)}
+              ></Input>
             </AccordionContent>
           </AccordionItem>
         </Accordion>

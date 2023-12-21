@@ -13,6 +13,9 @@ export const ChatContainer = () => {
 
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: `/api/gemini-pro`,
+    headers: {
+      "x-valid-code": window.localStorage.getItem("validCode") as string,
+    },
     body: {
       general_settings: generalSettings,
       safety_settings: safetySettings,

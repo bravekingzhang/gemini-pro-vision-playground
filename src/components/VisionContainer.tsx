@@ -67,6 +67,7 @@ export const VisionContainer = () => {
         body,
         headers: {
           "Content-Type": "application/json",
+          "x-valid-code": window.localStorage.getItem("validCode") as string,
         },
       });
 
