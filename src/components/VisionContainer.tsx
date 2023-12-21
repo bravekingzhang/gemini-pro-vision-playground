@@ -2,7 +2,7 @@
 // componnets/VisionContainer.tsx
 import { MarkdownViewer } from "@/components/MarkdownViewer";
 import { Card } from "@/components/ui/card";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Loader, Send } from "lucide-react";
 
 import { useControlContext } from "@/providers/ControlContext";
@@ -17,6 +17,11 @@ export const VisionContainer = () => {
   const [prompt, setPrompt] = useState<string>("");
   const [userQuestion, setUserQuestion] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [validCode, setValidCode] = useState<string>("");
+
+  useEffect(() => {
+    setValidCode(window.localStorage.getItem("validCode") as string);
+  }, []);
 
   const isFormSubmittable = () => {
     return (
@@ -67,7 +72,7 @@ export const VisionContainer = () => {
         body,
         headers: {
           "Content-Type": "application/json",
-          "x-valid-code": window.localStorage.getItem("validCode") as string,
+          "x-valid-code": validCode,
         },
       });
 

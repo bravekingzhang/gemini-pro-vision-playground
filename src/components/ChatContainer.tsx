@@ -10,11 +10,16 @@ import { useControlContext } from "@/providers/ControlContext";
 export const ChatContainer = () => {
   const { generalSettings, safetySettings } = useControlContext();
   const [loading, setLoading] = useState<boolean>(false);
+  const [validCode, setValidCode] = useState<string>("");
+
+  useEffect(() => {
+    setValidCode(window.localStorage.getItem("validCode") as string);
+  }, []);
 
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: `/api/gemini-pro`,
     headers: {
-      "x-valid-code": window.localStorage.getItem("validCode") as string,
+      "x-valid-code": validCode,
     },
     body: {
       general_settings: generalSettings,
